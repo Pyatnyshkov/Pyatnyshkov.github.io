@@ -20,7 +20,7 @@
 	<script type="text/javascript">
 		$(function() {
 			function getTable() {
-	        	$.get("https://pk.mpei.ru/inform/list10bacc.html", {}, function(results){
+	        	$.get("./sp.php", {}, function(results){
 	        		let table = $(results).find(".concurs-list");
 	        		let rows = table.rows;
 	        		let all = rows.length - 2;

@@ -21,7 +21,7 @@
 		$(function() {
 			function getTable() {
 	        	$.get("./sp.php", {}, function(results){
-	        		console.log(result)
+	        		console.log(results)
 	        		let table = $(results).find(".concurs-list");
 	        		let rows = table.rows;
 	        		let all = rows.length - 2;

@@ -21,60 +21,61 @@
 		$(function() {
 			function getTable() {
 	        	$.get("./sp.php", {}, function(results){
-	        		console.log(results)
-	        		let table = $(results).find(".concurs-list");
-	        		let rows = table.rows;
+	        		let rows = $(results).find(".concurs-list tr");
 	        		let all = rows.length - 2;
 	        		$('#all').text(all);
-	        		let agree,withD,place,placeWD;
+	        		let agree = 0;
+	        		let withD = 0;
+	        		let place,placeWD;
 	        		for (let i = 0; i < rows.length; i++) {
-	        			if (rows[i].cells[12] && rows[i].cells[12].text() == 'подано') {
-	        				agree++
-	        			}
-	        			if (rows[i].cells[11] && rows[i].cells[11].text() == 'с/о') {
-	        				withD++
-	        				if (rows[i].cells[10].text().indexOf('141702') !== -1) {
-	        					placeWD = i
-	        				}
-	        			}
-	        			if (rows[i].cells[10] && rows[i].cells[10].text().indexOf('141702') !== -1) {
-	        				place = i
+	        			if (rows[i].cells[12] && rows[i].cells[12].innerHTML == 'подано') {
+	        				agree++;
+	        				if (rows[i].cells[11] && rows[i].cells[11].innerHTML == 'с/о') {
+		        				withD++
+		        				// if (rows[i].cells[10].innerHTML.indexOf('141702') !== -1) {
+		        				// 	placeWD = i
+		        				// }
+		        			}
+		        			if (rows[i].cells[10] && rows[i].cells[10].innerHTML.indexOf('141702') !== -1) {
+		        				place = agree
+		        			}
 	        			}
 	        		}
+	        		$('#withD').text(withD);
 	        		$('#agree').text(agree);
 	        		$('#place').text(place);
-	        		$('#placeWD').text(placeWD);
+	        		// $('#placeWD').text(placeWD);
 				});
 	        }
 	        function reload() {
-	        	setInterval(getTable, 5000)
+	        	getTable();
+	        	setInterval(getTable, 5 * 60 * 1000)
 	        }
-	        getTable();
-
+	        reload();
       	});
 	</script>
 	<h1>Результаты Артёма</h1>
 	<table>
 		<tr>
 			<td>Всего подало</td>
-			<td id="all">1000</td>
+			<td id="all"></td>
 		</tr>
 		<tr>
 			<td>Согласие</td>
-			<td id="agree">40</td>
+			<td id="agree"></td>
 		</tr>
 		<tr>
 			<td>С общежитием</td>
-			<td id="withD">20</td>
+			<td id="withD"></td>
 		</tr>
 		<tr>
 			<td>Место</td>
-			<td id="place">5</td>
+			<td id="place"></td>
 		</tr>
-		<tr>
+		<!-- <tr>
 			<td>Место с общежитием</td>
 			<td id="placeWD">3</td>
-		</tr>
+		</tr> -->
 	</table>
 	<a href="https://pk.mpei.ru/inform/list10bacc.html">Перейти к таблице</a>
 </body>

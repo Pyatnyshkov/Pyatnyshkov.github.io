@@ -1,82 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Абитуриент Артём</title>
-	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-</head>
-<body>
-	<style>
-		table {
-			margin-bottom: 20px;
-			width: 250px;
-		}
-		a {
-			display: block;
-			margin-top: 20px;
-		}
-	</style>
-	<script type="text/javascript">
-		$(function() {
-			function getTable() {
-	        	$.get("./sp.php", {}, function(results){
-	        		let rows = $(results).find(".concurs-list tr");
-	        		let all = rows.length - 2;
-	        		$('#all').text(all);
-	        		let agree = 0;
-	        		let withD = 0;
-	        		let place,placeWD;
-	        		for (let i = 0; i < rows.length; i++) {
-	        			if (rows[i].cells[12] && rows[i].cells[12].innerHTML == 'подано') {
-	        				agree++;
-	        				if (rows[i].cells[11] && rows[i].cells[11].innerHTML == 'с/о') {
-		        				withD++
-		        				// if (rows[i].cells[10].innerHTML.indexOf('141702') !== -1) {
-		        				// 	placeWD = i
-		        				// }
-		        			}
-		        			if (rows[i].cells[10] && rows[i].cells[10].innerHTML.indexOf('141702') !== -1) {
-		        				place = agree
-		        			}
-	        			}
-	        		}
-	        		$('#withD').text(withD);
-	        		$('#agree').text(agree);
-	        		$('#place').text(place);
-	        		// $('#placeWD').text(placeWD);
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Check iframe sbol</title>
+		<script type="text/javascript">
+			function go() {
+				var button = document.getElementById("button");
+				var url = document.getElementById("input");
+				var form = document.getElementById("form");
+				button.addEventListener("click", function() {
+					form.setAttribute("action", url.value);
+					form.submit();
 				});
-	        }
-	        function reload() {
-	        	getTable();
-	        	setInterval(getTable, 5 * 60 * 1000)
-	        }
-	        reload();
-      	});
-	</script>
-	<h1>Результаты Артёма</h1>
-	<table>
-		<tr>
-			<td>Всего подало</td>
-			<td id="all"></td>
-		</tr>
-		<tr>
-			<td>Согласие</td>
-			<td id="agree"></td>
-		</tr>
-		<tr>
-			<td>С общежитием</td>
-			<td id="withD"></td>
-		</tr>
-		<tr>
-			<td>Место</td>
-			<td id="place"></td>
-		</tr>
-		<!-- <tr>
-			<td>Место с общежитием</td>
-			<td id="placeWD">3</td>
-		</tr> -->
-	</table>
-	<a href="https://pk.mpei.ru/inform/list10bacc.html">Перейти к таблице</a>
-</body>
+			}
+		</script>
+	</head>
+	<body>
+		<form method="get" target="iframe" id="form" onsubmit="go(); return false">
+			<input type="text" id="input" />
+			<button type="submit" id="button">Просмотр</button>
+		</form>
+		<div className="frame_container">
+			<iframe
+				name="iframe"
+				seamless="seamless"
+				width="100%"
+				height="450"
+				frameborder="0"
+				title="iframe"
+			/>
+		</div>
+
+	</body>
 </html>

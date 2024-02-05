@@ -4,37 +4,7 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Check iframe sbol</title>
-		<script type="text/javascript">
-			window.addEventListener("message", function(message) {
-				if (!message.data) {
-					return;
-				}
-				try {
-					var data = JSON.parse(message.data);
-				} catch (e) {
-					return;
-				}
-				var arguments = data.data;
-
-				if (data.type === "sberPayRedirect") {
-					console.log(arguments);
-					console.log(window.location);
-					var links = [
-			            arguments.redirectUrl, 
-			            arguments.redirectUrl.replace("sberpay","sbolpay"), 
-			            arguments.redirectUrl.replace("sberpay://","btripsexpenses://sbolpay/")
-			        ];
-			        var linksParam = encodeURIComponent(JSON.stringify(links));
-			        var paymentPage = encodeURIComponent(window.location.href);
-			        window.location.href =
-			            message.origin +
-			            "/media/sbol_opener/sbol_opener.html?links=" +
-			            linksParam +
-			            "&paymentPage=" +
-			            paymentPage
-				}
-			});
-		</script>
+		<script src="https://test.egopay.ru/paymedia/js/pg-additional-1.0.js"></script>
 		<script type="text/javascript">
 			function go() {
 				var button = document.getElementById("button");
